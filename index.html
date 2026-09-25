@@ -11,25 +11,25 @@
 <style>
 :root{--blue:#14379C;--sky:#38B6FF;--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e5e7eb;--red:#d92d20;--green:#16803c}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:1100px;margin:auto;padding-bottom:80px}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:720px;margin:auto;padding-bottom:80px}
 header{background:linear-gradient(135deg,var(--blue),#2457c5);color:#fff;padding:20px 16px;position:sticky;top:0;z-index:10;box-shadow:0 3px 14px #0002}
 .head{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:800;font-size:20px}.month{font-size:13px;opacity:.85}
 .iconbtn{background:#ffffff22;color:#fff;border-radius:12px;padding:10px}.status{font-size:11px;margin-top:6px;opacity:.9}
-main{padding:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 2px 8px #1018280a}
-.kpi .label{font-size:12px;color:var(--muted)}.kpi .value{font-size:22px;font-weight:800;margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.action{padding:14px;border-radius:14px;background:#fff;border:1px solid var(--line);font-weight:700}.primary{background:var(--blue);color:#fff}
+main{padding:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 2px 8px #1018280a}
+.kpi .label{font-size:12px;color:var(--muted)}.kpi .value{font-size:21px;font-weight:800;margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}
+.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}.action{padding:13px 6px;border-radius:14px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:13px}.primary{background:var(--blue);color:#fff}
 .section{margin-top:14px}.section h2{font-size:17px;margin:0 0 10px}.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.bar{height:9px;background:#edf0f5;border-radius:9px;overflow:hidden;margin-top:8px}.fill{height:100%;background:var(--sky)}
 .tx{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.tx:last-child{border-bottom:0}.tx small{display:block;color:var(--muted);margin-top:3px}
 nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:20}nav button{background:none;padding:10px 14px;color:var(--muted);font-size:12px}nav button.active{color:var(--blue);font-weight:800}
 .modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;z-index:30}.modal.show{display:flex}.sheet{background:#fff;width:100%;max-width:700px;margin:auto 0 0;border-radius:22px 22px 0 0;padding:20px;max-height:92vh;overflow:auto}.sheet h2{margin-top:0}
 .form{display:grid;gap:11px}.form label{font-size:12px;font-weight:700;color:#475467}.form input,.form select{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:11px;background:#fff}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:10px}.submit{padding:13px;border-radius:12px;background:var(--blue);color:#fff;font-weight:800}.ghost{padding:11px;border-radius:12px;background:#f2f4f7}
-.hidden{display:none}.empty{padding:25px;text-align:center;color:var(--muted)}.login{max-width:430px;margin:70px auto;padding:20px}.login h1{margin-bottom:4px}.hint{font-size:12px;color:var(--muted);line-height:1.5}
-@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}.actions{grid-template-columns:1fr 1fr}main{padding:11px}.kpi .value{font-size:19px}}
+.hidden{display:none}.empty{padding:25px;text-align:center;color:var(--muted)}.login{max-width:420px;margin:70px auto;padding:20px}.login h1{margin-bottom:4px}.hint{font-size:12px;color:var(--muted);line-height:1.5}
+@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}main{padding:11px}.kpi .value{font-size:19px}}
 </style>
 </head>
 <body>
 <div id="loginView" class="login card hidden">
-<h1>💰 Finanzas Familia</h1><p class="hint">Inicia sesión para acceder a los gastos, ingresos, presupuestos y ahorros compartidos.</p>
+<h1>💰 Finanzas Familia</h1><p class="hint">Inicia sesión con la cuenta de tu familia para ver y registrar los gastos, ingresos y ahorros compartidos.</p>
 <form id="loginForm" class="form">
 <label>Correo<input id="email" type="email" required autocomplete="email"></label>
 <label>Contraseña<input id="password" type="password" required autocomplete="current-password"></label>
@@ -43,16 +43,15 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 <main>
 <section id="dashboard">
 <div class="grid">
-<div class="card kpi"><div class="label">Ingresos reales</div><div class="value green" id="income">S/ 0.00</div></div>
-<div class="card kpi"><div class="label">Gastos reales</div><div class="value red" id="expense">S/ 0.00</div></div>
+<div class="card kpi"><div class="label">Ingresos</div><div class="value green" id="income">S/ 0.00</div></div>
+<div class="card kpi"><div class="label">Gastos</div><div class="value red" id="expense">S/ 0.00</div></div>
 <div class="card kpi"><div class="label">Ahorro</div><div class="value green" id="savingKpi">S/ 0.00</div></div>
 <div class="card kpi"><div class="label">Disponible</div><div class="value" id="available">S/ 0.00</div></div>
 </div>
 <div class="actions">
-<button class="action primary" onclick="openTx('expense')">➖ Registrar gasto</button>
-<button class="action" onclick="openTx('income')">➕ Registrar ingreso</button>
-<button class="action" onclick="openTx('saving')">🏦 Registrar ahorro</button>
-<button class="action" onclick="showPage('transactions',this)">📋 Movimientos</button>
+<button class="action primary" onclick="openTx('expense')">➖ Gasto</button>
+<button class="action" onclick="openTx('income')">➕ Ingreso</button>
+<button class="action" onclick="openTx('saving')">🏦 Ahorro</button>
 </div>
 <div class="section card"><div class="row"><h2>Gastos por categoría</h2><span id="catTotal"></span></div><div id="categories"></div></div>
 <div class="section card"><h2>Últimos movimientos</h2><div id="recent"></div></div>
@@ -60,11 +59,11 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 
 <section id="transactions" class="hidden"><div class="card"><div class="row"><h2>Movimientos</h2><button class="ghost" onclick="openTx('expense')">＋</button></div><div class="twocol"><input id="filterText" placeholder="Buscar..." oninput="renderTransactions()"><select id="filterType" onchange="renderTransactions()"><option value="">Todos</option><option value="expense">Gastos</option><option value="income">Ingresos</option><option value="saving">Ahorros</option></select></div><div id="txList"></div></div></section>
 
-<section id="budget" class="hidden"><div class="card"><div class="row"><h2>Presupuesto mensual</h2><button class="ghost" onclick="openBudget()">＋</button></div><div id="budgetList"></div></div></section>
-<section id="saving" class="hidden"><div class="card"><h2>🎯 Fondo de ahorro</h2><div class="kpi"><div class="label">Ahorrado este mes</div><div class="value green" id="savingTotal">S/ 0.00</div></div><div class="bar"><div class="fill" id="savingBar"></div></div><p id="savingMeta"></p><button class="submit" onclick="openTx('saving')">Agregar ahorro</button></div></section>
-<section id="reports" class="hidden"><div class="card"><h2>📊 Resumen del mes</h2><div id="report"></div></div></section>
+<section id="saving" class="hidden"><div class="card"><h2>🎯 Fondo de ahorro</h2><div class="kpi"><div class="label">Ahorrado este mes</div><div class="value green" id="savingTotal">S/ 0.00</div></div><div class="bar"><div class="fill" id="savingBar"></div></div><p id="savingMeta"></p>
+<div class="form" style="margin-top:12px"><label>Meta de ahorro mensual (S/)<input id="savingGoal" type="number" step="0.01" min="0"></label><button class="submit" onclick="saveSettings()">Guardar meta</button></div>
+<button class="submit" style="margin-top:10px" onclick="openTx('saving')">Agregar ahorro</button></div></section>
 </main>
-<nav><button class="active" onclick="showPage('dashboard',this)">🏠<br>Inicio</button><button onclick="showPage('transactions',this)">📋<br>Movimientos</button><button onclick="showPage('budget',this)">🎯<br>Presupuesto</button><button onclick="showPage('saving',this)">🏦<br>Ahorro</button><button onclick="showPage('reports',this)">📊<br>Reportes</button></nav>
+<nav><button class="active" onclick="showPage('dashboard',this)">🏠<br>Inicio</button><button onclick="showPage('transactions',this)">📋<br>Movimientos</button><button onclick="showPage('saving',this)">🏦<br>Ahorro</button></nav>
 </div>
 
 <div class="modal" id="modal"><div class="sheet"><div class="row"><h2 id="modalTitle"></h2><button class="ghost" onclick="closeModal()">✕</button></div>
@@ -75,22 +74,11 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 <label>Medio de pago<select id="txMethod"><option>Efectivo</option><option>Yape/Plin</option><option>Tarjeta</option><option>Transferencia</option></select></label>
 <button class="submit">Guardar</button></form></div></div>
 
-<div class="modal" id="budgetModal"><div class="sheet"><div class="row"><h2>Presupuesto</h2><button class="ghost" onclick="closeBudget()">✕</button></div>
-<form class="form" id="budgetForm"><label>Categoría<select id="budgetCat"></select></label><label>Presupuesto (S/)<input id="budgetAmount" type="number" step=".01" min="0" required></label><button class="submit">Guardar</button></form></div></div>
-
-<div class="modal" id="settingsModal"><div class="sheet"><div class="row"><h2>Configuración</h2><button class="ghost" onclick="closeSettings()">✕</button></div><div class="form">
-<label>Meta de ahorro (S/)<input id="savingGoal" type="number" step=".01" min="0"></label><button class="submit" onclick="saveSettings()">Guardar</button>
-</div></div></div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, setDoc, doc, deleteDoc, onSnapshot, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, setDoc, doc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-/*
-  PEGA AQUÍ LA CONFIGURACIÓN QUE TE DA FIREBASE CONSOLE
-  Project settings > Your apps > Web app
-*/
 const firebaseConfig = {
   apiKey: "AIzaSyC7LwIqgBAT8tg0SmmubxEdFgP5g_zc6fA",
   authDomain: "finanzas-familia-f8db7.firebaseapp.com",
@@ -100,13 +88,13 @@ const firebaseConfig = {
   appId: "1:723666009391:web:829987902045de8f49b5da"
 };
 
-const configured = !Object.values(firebaseConfig).some(v=>String(v).startsWith("PEGA_"));
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const CATEGORIES=["Víveres","Frutas","Cenas","Loncheras","Golosinas","Pasajes","Taxi","Colegio","Pensiones","Tarjetas","Cuotas","Junta","Consultorio","Alquiler","Salud","Salidas","Compras","Servicios","Otros"];
-let transactions=[], budgets={}, settings={savingGoal:0}, unsubs=[];
+const EXPENSE_CATS=["Víveres","Frutas","Pasajes","Taxi","Loncheras","Golosinas","Salidas","Cenas","Colegio","Pensiones","Salud","Servicios","Compras","Tarjetas","Cuotas","Junta","Consultorio","Alquiler","Otros"];
+const INCOME_CATS=["Sueldo","Consultorio","Freelance","Otros"];
+let transactions=[], settings={savingGoal:0}, unsubs=[];
 const $=id=>document.getElementById(id);
 const money=n=>"S/ "+Number(n||0).toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2});
 const monthKey=()=>new Date().toISOString().slice(0,7);
@@ -117,48 +105,40 @@ function showApp(){ $("loginView").classList.add("hidden");$("appView").classLis
 window.logout=()=>signOut(auth);
 
 $("loginForm").onsubmit=async e=>{
- e.preventDefault(); if(!configured){showLogin("Primero configura firebaseConfig en app.js.");return}
- try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(err){$("loginMsg").textContent="No se pudo iniciar sesión: "+err.message}
+ e.preventDefault();
+ try{ await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value); }
+ catch(err){ $("loginMsg").textContent="No se pudo iniciar sesión: "+err.message; }
 };
 
 onAuthStateChanged(auth,user=>{
- unsubs.forEach(fn=>fn());unsubs=[];
- if(!user){showLogin(configured?"":"Falta configurar Firebase en app.js.");return}
- showApp();$("syncStatus").textContent="☁️ Sincronizado con Firebase";
- const tq=query(collection(db,"transactions"),where("uid","==",user.uid),orderBy("date","desc"));
- unsubs.push(onSnapshot(tq,s=>{transactions=s.docs.map(d=>({id:d.id,...d.data()}));render()}));
- unsubs.push(onSnapshot(doc(db,"users",user.uid,"settings","main"),s=>{settings=s.exists()?s.data():{savingGoal:0};render()}));
- const bq=query(collection(db,"users",user.uid,"budgets"),orderBy("category"));
- unsubs.push(onSnapshot(bq,s=>{budgets={};s.docs.forEach(d=>budgets[d.data().category]=d.data().amount);render()}));
+ unsubs.forEach(fn=>fn()); unsubs=[];
+ if(!user){ showLogin(""); return; }
+ showApp(); $("syncStatus").textContent="☁️ Sincronizado — cuenta: "+user.email;
+ const tq=query(collection(db,"transactions"),orderBy("createdAt","desc"),limit(500));
+ unsubs.push(onSnapshot(tq,s=>{transactions=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{$("syncStatus").textContent="⚠️ Sin conexión"}));
+ unsubs.push(onSnapshot(doc(db,"settings","shared"),s=>{settings=s.exists()?s.data():{savingGoal:0};render()}));
 });
 
 $("txForm").onsubmit=async e=>{
- e.preventDefault();const user=auth.currentUser;if(!user)return;
- await addDoc(collection(db,"transactions"),{uid:user.uid,type:$("txType").value,date:$("txDate").value,amount:+$("txAmount").value,category:$("txCategory").value,desc:$("txDesc").value.trim(),person:$("txPerson").value,method:$("txMethod").value,createdAt:Date.now()});
+ e.preventDefault(); const user=auth.currentUser; if(!user)return;
+ await addDoc(collection(db,"transactions"),{uid:user.uid,by:user.email,type:$("txType").value,date:$("txDate").value,amount:+$("txAmount").value,category:$("txCategory").value,desc:$("txDesc").value.trim(),person:$("txPerson").value,method:$("txMethod").value,createdAt:Date.now()});
  closeModal();
 };
-$("budgetForm").onsubmit=async e=>{e.preventDefault();const user=auth.currentUser;if(!user)return;const category=$("budgetCat").value;await setDoc(doc(db,"users",user.uid,"budgets",category),{category,amount:+$("budgetAmount").value});closeBudget()};
-window.saveSettings=async()=>{const user=auth.currentUser;if(!user)return;await setDoc(doc(db,"users",user.uid,"settings","main"),{savingGoal:+$("savingGoal").value||0},{merge:true});closeSettings()};
+window.saveSettings=async()=>{ const user=auth.currentUser; if(!user)return; await setDoc(doc(db,"settings","shared"),{savingGoal:+$("savingGoal").value||0},{merge:true}); };
 
-window.openTx=type=>{$("modalTitle").textContent=type==="expense"?"Registrar gasto":type==="income"?"Registrar ingreso":"Registrar ahorro";$("txType").value=type;$("txDate").value=new Date().toISOString().slice(0,10);$("txAmount").value="";$("txDesc").value="";$("txCategory").innerHTML=(type==="income"?["Sueldo","Consultas Lisbeth","Freelance","Otros"]:type==="saving"?["Ahorro"]:CATEGORIES).map(x=>`<option>${x}</option>`).join("");$("modal").classList.add("show")};
+window.openTx=type=>{$("modalTitle").textContent=type==="expense"?"Registrar gasto":type==="income"?"Registrar ingreso":"Registrar ahorro";$("txType").value=type;$("txDate").value=new Date().toISOString().slice(0,10);$("txAmount").value="";$("txDesc").value="";$("txCategory").innerHTML=(type==="income"?INCOME_CATS:type==="saving"?["Ahorro"]:EXPENSE_CATS).map(x=>`<option>${x}</option>`).join("");$("modal").classList.add("show")};
 window.closeModal=()=>$("modal").classList.remove("show");
-window.openBudget=()=>{$("budgetCat").innerHTML=CATEGORIES.map(x=>`<option>${x}</option>`).join("");$("budgetAmount").value=budgets[$("budgetCat").value]||"";$("budgetModal").classList.add("show")};
-window.closeBudget=()=>$("budgetModal").classList.remove("show");
-$("budgetCat").onchange=()=>{$("budgetAmount").value=budgets[$("budgetCat").value]||""};
-window.openSettings=()=>{$("savingGoal").value=settings.savingGoal||"";$("settingsModal").classList.add("show")};
-window.closeSettings=()=>$("settingsModal").classList.remove("show");
 window.showPage=(id,btn)=>{document.querySelectorAll("main>section").forEach(s=>s.classList.add("hidden"));$(id).classList.remove("hidden");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");render()};
 
-function txHtml(x){let sign=x.type==="income"?"+":x.type==="saving"?"🏦":"-";return `<div class="tx"><div><b>${x.category}</b><small>${x.date} · ${x.desc||x.person} · ${x.method}</small></div><strong class="${x.type==="income"?"green":x.type==="expense"?"red":""}">${sign}${money(x.amount)}</strong></div>`}
+function txHtml(x){let sign=x.type==="income"?"+":x.type==="saving"?"🏦":"-";return `<div class="tx"><div><b>${x.category}</b><small>${x.date} · ${x.desc||x.person} · ${x.method} · ${x.by||""}</small></div><strong class="${x.type==="income"?"green":x.type==="expense"?"red":""}">${sign}${money(x.amount)}</strong></div>`}
 window.renderTransactions=()=>{let q=($("filterText")?.value||"").toLowerCase(),f=$("filterType")?.value||"";let a=monthTx().filter(x=>(!f||x.type===f)&&JSON.stringify(x).toLowerCase().includes(q));$("txList").innerHTML=a.map(txHtml).join("")||'<div class="empty">Sin movimientos.</div>'};
-function renderBudget(){let spent={};monthTx().filter(x=>x.type==="expense").forEach(x=>spent[x.category]=(spent[x.category]||0)+x.amount);$("budgetList").innerHTML=Object.entries(budgets).filter(([,v])=>v>0).map(([k,b])=>{let s=spent[k]||0;return `<div style="margin:15px 0"><div class="row"><b>${k}</b><span>${money(s)} / ${money(b)}</span></div><div class="bar"><div class="fill" style="width:${Math.min(100,s/b*100)}%"></div></div></div>`}).join("")||'<div class="empty">Agrega presupuestos por categoría.</div>'}
-function renderReport(){let exp=monthTx().filter(x=>x.type==="expense"),by={};exp.forEach(x=>by[x.person]=(by[x.person]||0)+x.amount);$("report").innerHTML=`<p><b>Total de gastos:</b> ${money(exp.reduce((a,x)=>a+x.amount,0))}</p><h3>Por persona</h3>`+Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="tx"><span>${k}</span><b>${money(v)}</b></div>`).join("")+`<h3>Gasto hormiga (&lt; S/ 10)</h3><p>${money(exp.filter(x=>x.amount<10).reduce((a,x)=>a+x.amount,0))}</p>`}
+
 function render(){
  const tx=monthTx(),inc=tx.filter(x=>x.type==="income").reduce((a,x)=>a+x.amount,0),exp=tx.filter(x=>x.type==="expense").reduce((a,x)=>a+x.amount,0),sav=tx.filter(x=>x.type==="saving").reduce((a,x)=>a+x.amount,0);
  $("monthLabel").textContent=new Date().toLocaleDateString("es-PE",{month:"long",year:"numeric"});$("income").textContent=money(inc);$("expense").textContent=money(exp);$("savingKpi").textContent=money(sav);$("available").textContent=money(inc-exp-sav);
- $("savingTotal").textContent=money(sav);let goal=+settings.savingGoal||0;$("savingBar").style.width=goal?Math.min(100,sav/goal*100)+"%":"0%";$("savingMeta").textContent=goal?`${money(sav)} de ${money(goal)} (${Math.round(sav/goal*100)}%)`:"Configura una meta en ⚙️";
+ $("savingTotal").textContent=money(sav);let goal=+settings.savingGoal||0;$("savingBar").style.width=goal?Math.min(100,sav/goal*100)+"%":"0%";$("savingGoal").value=goal||"";$("savingMeta").textContent=goal?`${money(sav)} de ${money(goal)} (${Math.round(sav/goal*100)}%)`:"Aún no defines una meta mensual.";
  const cats={};tx.filter(x=>x.type==="expense").forEach(x=>cats[x.category]=(cats[x.category]||0)+x.amount);const max=Math.max(1,...Object.values(cats));$("catTotal").textContent=money(exp);$("categories").innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div style="margin:11px 0"><div class="row"><span>${k}</span><b>${money(v)}</b></div><div class="bar"><div class="fill" style="width:${v/max*100}%"></div></div></div>`).join("")||'<div class="empty">Aún no hay gastos.</div>';
- $("recent").innerHTML=tx.slice(0,8).map(txHtml).join("")||'<div class="empty">Registra tu primer movimiento.</div>';renderTransactions();renderBudget();renderReport();
+ $("recent").innerHTML=tx.slice(0,8).map(txHtml).join("")||'<div class="empty">Registra tu primer movimiento.</div>';renderTransactions();
 }
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
